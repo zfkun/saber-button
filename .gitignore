@@ -1,6 +1,4 @@
 
-dep/saber-emitter
+.DS_Store
 
-dep/saber-control
-
-npm-debug.log
+dep
