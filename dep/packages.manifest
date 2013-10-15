@@ -1,0 +1,16 @@
+{
+    "saber-emitter": {
+        "0.3.0": {
+            "name": "saber-emitter",
+            "version": "0.3.0",
+            "main": "emitter"
+        }
+    },
+    "saber-control": {
+        "0.1.0": {
+            "name": "saber-control",
+            "version": "0.1.0",
+            "main": "control"
+        }
+    }
+}
