@@ -30,8 +30,13 @@ define( function ( require ) {
          */
         type: 'Button',
 
-        initialize: function() {
-            console.info( 'Button inited', this.superClass );
+        init: function() {
+            console.info('Button.init call');
+        },
+
+        render: function() {
+            console.info( 'Button.render call' );
+            // this.parent( 'render' );
         }
 
     };

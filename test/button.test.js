@@ -26,8 +26,12 @@ define(function() {
         	b1.disable();
         	b1.enable();
 
+            b1.render();
 
-        	console.info( b1 );
+            // b1._events.beforeinit[0]();
+
+
+        	// console.info( b1 );
 
         	// it().toEqual(  );
 
