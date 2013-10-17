@@ -9,10 +9,6 @@
       "email": "zfkun@msn.com"
     }
   ],
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-jsdoc": "~0.4.1"
-  },
   "dependencies": {
     "saber-emitter": "~0.3.0",
     "saber-control": "~0.1.0"
