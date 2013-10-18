@@ -9,24 +9,29 @@ define(function() {
         describe( 'should create instance of Button' , function() {
 
         	b1 = new Button({
+                content: 'test',
         		onBeforeinit: function() {
         			console.info( 'beforeinit', arguments );
         		},
         		onAfterinit: function() {
         			console.info( 'afterinit', arguments );
         		},
-        	});
-        	b1.on( 'enable', function() {
-        		console.info( 'enable', arguments );
+        	}).on( 'enable', function() {
+        		console.info( this.id, 'enable', arguments );
         	}).on( 'disable', function() {
-        		console.info( 'disable', arguments );
+        		console.info( this.id, 'disable', arguments );
         	});
 
-        	b1.enable();
-        	b1.disable();
-        	b1.enable();
+            b1.appendTo( document.body );
 
-            b1.render();
+            b2 = new Button({
+                id: 'b2',
+                content: 'on/off b1'
+            }).on( 'click', function() {
+                b1[ b1.isDisabled() ? 'enable' : 'disable']();
+            });
+
+            b2.render();
 
             // b1._events.beforeinit[0]();
 

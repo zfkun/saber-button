@@ -7,6 +7,7 @@
 
 define( function ( require ) {
 
+    var DOM = require( 'saber-dom' );
     var Control = require( 'saber-control' );
 
     /**
@@ -34,14 +35,67 @@ define( function ( require ) {
             console.info('Button.init call');
         },
 
+        /**
+         * 创建控件主元素
+         * 
+         * @param {Object} options 构造函数传入的配置参数
+         * @return {HTMLElement}
+         * @override
+         */
+        createMain: function() {
+            return document.createElement('BUTTON');
+        },
+
         render: function() {
-            console.info( 'Button.render call' );
-            // this.parent( 'render' );
+            var self = this, main = self.main;
+
+            if ( self.rendered ) return;
+
+            self.rendered = true;
+
+            if ( !self.options.main ) {
+                document.body.appendChild( main );
+            }
+
+            if ( !self.onTouch ) {
+                self.onTouch = dispatchTouchEvent.bind( self );
+            }
+            main.addEventListener( 'touchstart', self.onTouch );
+            main.addEventListener( 'touchend', self.onTouch );
+
+            if ( self.content ) {
+                main.innerHTML = self.content;
+            }
+        },
+
+        /**
+         * 设置内容
+         *
+         * @param {string} content 要设置的内容.
+         * @public
+         */
+        setContent: function ( content ) {
+            this.setProperties({ 'content': content });
         }
 
     };
 
     Control.inherits( Button );
+
+
+    function dispatchTouchEvent( ev ) {
+        var type = ev.type;
+
+        switch ( type ) {
+            case 'touchstart':
+                DOM.addClass( this.main, 'sui-focus' );
+                break;
+            case 'touchend':
+                DOM.removeClass( this.main, 'sui-focus' );
+                this.emit( 'click' );
+                break;
+        }
+    }
 
     return Button;
 });

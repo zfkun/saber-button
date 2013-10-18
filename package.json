@@ -10,6 +10,7 @@
     }
   ],
   "dependencies": {
+    "saber-dom": "~0.0.1",
     "saber-emitter": "~0.3.0",
     "saber-control": "~0.1.0"
   },
