@@ -7,30 +7,24 @@ define(function() {
         
         describe( 'Public API' , function() {
 
-            b1 = new Button({
-                content: 'test',
-                onBeforeinit: function() {
-                    console.info( 'beforeinit', arguments );
-                },
-                onAfterinit: function() {
-                    console.info( 'afterinit', arguments );
-                },
-            }).on( 'enable', function() {
-                console.info( this.id, 'enable', arguments );
-            }).on( 'disable', function() {
-                console.info( this.id, 'disable', arguments );
-            });
+            b1 = new Button({ content: 'b1' });
 
             b1.appendTo( document.body );
 
             b2 = new Button({
                 id: 'b2',
-                content: 'on/off b1'
+                content: 'enable/disable `b1`'
             }).on( 'click', function() {
                 b1[ b1.isDisabled() ? 'enable' : 'disable']();
             });
-
             b2.render();
+
+            b3 = new Button({
+                content: 'show/hide `b1`'
+            }).on( 'click', function () {
+                b1.toggle();
+            });
+            b3.render();
 
 
 
@@ -64,12 +58,13 @@ define(function() {
 
             it( '`appendTo`', function () {
                 var b = new Button({ content: '.appendTo' });
-                var wrap = document.createElement( 'div' );
-                wrap.style.cssText = 'border: 1px solid red; display: inline;';
-                document.body.appendChild( wrap );
+                var wrap = document.querySelector( '#demo' );
                 b.appendTo( wrap );
 
-                expect( wrap.contains( b.main ) ).toEqual( true );
+                expect(
+                    wrap.contains( b.get( 'main' ) )
+                    && wrap.lastChild === b.get( 'main' )
+                ).toBeTruthy();
             });
 
         });

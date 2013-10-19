@@ -31,9 +31,7 @@ define( function ( require ) {
          */
         type: 'Button',
 
-        init: function() {
-            console.info('Button.init call');
-        },
+        init: function() {},
 
         /**
          * 创建控件主元素
@@ -46,25 +44,17 @@ define( function ( require ) {
             return document.createElement('BUTTON');
         },
 
-        render: function() {
-            var self = this, main = self.main;
+        repaint: function() {
+            var main = this.main;
 
-            if ( self.rendered ) return;
-
-            self.rendered = true;
-
-            // if ( !self.options.main ) {
-            //     document.body.appendChild( main );
-            // }
-
-            if ( !self.onTouch ) {
-                self.onTouch = dispatchTouchEvent.bind( self );
+            if ( !this.onTouch ) {
+                this.onTouch = dispatchTouchEvent.bind( this );
             }
-            main.addEventListener( 'touchstart', self.onTouch );
-            main.addEventListener( 'touchend', self.onTouch );
+            main.addEventListener( 'touchstart', this.onTouch );
+            main.addEventListener( 'touchend', this.onTouch );
 
-            if ( self.content ) {
-                main.innerHTML = self.content;
+            if ( this.content ) {
+                main.innerHTML = this.content;
             }
         },
 
@@ -88,10 +78,10 @@ define( function ( require ) {
 
         switch ( type ) {
             case 'touchstart':
-                DOM.addClass( this.main, 'sui-focus' );
+                this.addState( 'focus' );
                 break;
             case 'touchend':
-                DOM.removeClass( this.main, 'sui-focus' );
+                this.removeState( 'focus' );
                 // FIXME : 测试用，待 saber-tap 引入后移除
                 this.emit( 'click' );
                 break;
