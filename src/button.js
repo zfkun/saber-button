@@ -53,9 +53,9 @@ define( function ( require ) {
 
             self.rendered = true;
 
-            if ( !self.options.main ) {
-                document.body.appendChild( main );
-            }
+            // if ( !self.options.main ) {
+            //     document.body.appendChild( main );
+            // }
 
             if ( !self.onTouch ) {
                 self.onTouch = dispatchTouchEvent.bind( self );
@@ -92,6 +92,10 @@ define( function ( require ) {
                 break;
             case 'touchend':
                 DOM.removeClass( this.main, 'sui-focus' );
+                // FIXME : 测试用，待 saber-tap 引入后移除
+                this.emit( 'click' );
+                break;
+            case 'tap':
                 this.emit( 'click' );
                 break;
         }
