@@ -28,7 +28,12 @@
     
     <script>
     require.config({
-        packages: [ 
+        packages: [
+            {
+                name: 'saber-lang',
+                location: '../dep/saber-lang/src',
+                main: 'main'
+            },
             {
                 name: 'saber-dom',
                 location: '../dep/saber-dom/src',

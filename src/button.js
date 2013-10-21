@@ -7,6 +7,7 @@
 
 define( function ( require ) {
 
+    var Lang = require( 'saber-lang' );
     var DOM = require( 'saber-dom' );
     var Control = require( 'saber-control' );
 
@@ -18,7 +19,7 @@ define( function ( require ) {
      * @exports Button
      */
     var Button = function() {
-        Button.superClass.constructor.apply( this, arguments );
+        Control.apply( this, arguments );
     };
 
     Button.prototype = {
@@ -32,10 +33,11 @@ define( function ( require ) {
         type: 'Button',
 
         init: function() {
-            if ( !this.onTouch ) {
-                this.onTouch = dispatchTouchEvent.bind( this );
-                this.main.addEventListener( 'touchstart', this.onTouch );
-                this.main.addEventListener( 'touchend', this.onTouch );
+            if ( !this.onClick ) {
+                this.main.addEventListener(
+                    'click',
+                    this.onClick = this.emit.bind( this, 'click' )
+                );
             }
         },
 
@@ -66,12 +68,12 @@ define( function ( require ) {
             // see `Button#render` and `Control#setProperties`
             if ( !changes ) {
                 if ( this.hasOwnProperty( 'height' ) ) {
-                    main.style.height = this.height + 'px';
-                    main.style.lineHeight = this.height + 'px';
+                    DOM.setStyle( 'height', this.height );
+                    DOM.setStyle( 'lineHeight', this.height );
                 }
 
                 if ( this.hasOwnProperty( 'width' ) ) {
-                    main.style.width = this.width + 'px';
+                    DOM.setStyle( 'width', this.width );
                 }
 
                 main.innerHTML = this.content;
@@ -79,15 +81,15 @@ define( function ( require ) {
                 return;
             }
             else {
-                this.parent( 'repaint', changes );
+                Control.prototype.repaint.call( this, changes );
 
                 if ( changes.hasOwnProperty( 'height' ) ) {
-                    main.style.height = this.height + 'px';
-                    main.style.lineHeight = this.height + 'px';
+                    DOM.setStyle( 'height', this.height );
+                    DOM.setStyle( 'lineHeight', this.height );
                 }
 
                 if ( changes.hasOwnProperty( 'width' ) ) {
-                    main.style.width = this.width + 'px';
+                    DOM.setStyle( 'width', this.width );
                 }
 
                 if ( changes.hasOwnProperty( 'content' ) ) {
@@ -108,26 +110,7 @@ define( function ( require ) {
 
     };
 
-    Control.inherits( Button );
-
-
-    function dispatchTouchEvent( ev ) {
-        var type = ev.type;
-
-        switch ( type ) {
-            case 'touchstart':
-                this.addState( 'focus' );
-                break;
-            case 'touchend':
-                this.removeState( 'focus' );
-                // FIXME : 测试用，待 saber-tap 引入后移除
-                this.emit( 'click' );
-                break;
-            case 'tap':
-                this.emit( 'click' );
-                break;
-        }
-    }
+    Lang.inherits( Button, Control );
 
     return Button;
 });
