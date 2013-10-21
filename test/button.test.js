@@ -1,22 +1,8 @@
 define(function() {
 
-    Control = require( 'saber-control' );
-    Button = require( 'saber-button' );
+    var Button = require( 'saber-button' );
 
     describe( 'Button', function() {
-
-        // describe( 'Override API', function() {
-
-        //     it( 'repaint', function() {
-        //         var b = new Button({ content: 'override' });
-        //         b.on( 'propertychange', function ( changes ) { console.info('proerptyechange', changes) });
-        //         b.render();
-        //         b.setProperties( { height: 50, width: 80 } );
-        //         var repaintFn = function () { b.repaint(); };
-        //         expect( repaintFn ).not.toThrow( 'not implement repaint' );
-        //     });
-
-        // });
         
         describe( 'Public API' , function() {
 
