@@ -1,5 +1,6 @@
 /**
- * Saber
+ * Saber UI
+ * Copyright 2013 Baidu Inc. All rights reserved.
  * 
  * @file 按钮控件
  * @author zfkun(zfkun@msn.com)
@@ -7,6 +8,7 @@
 
 define( function ( require ) {
 
+    var ui = require( 'saber-ui' );
     var Lang = require( 'saber-lang' );
     var DOM = require( 'saber-dom' );
     var Control = require( 'saber-control' );
@@ -111,6 +113,8 @@ define( function ( require ) {
     };
 
     Lang.inherits( Button, Control );
+
+    ui.register( Button );
 
     return Button;
 });
